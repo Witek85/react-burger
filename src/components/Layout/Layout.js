@@ -6,15 +6,21 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
   state = {
-    showSideDrawer: true
+    showSideDrawer: false
   }
   sitedrawerClosedHandler = () => {
     this.setState({showSideDrawer: false})
   }
+  sitedrawerToggleHandler = () => {
+    this.setState((prevState) => {
+      return {showSideDrawer: !prevState.showSideDrawer}
+    })
+  }
+  
   render() {
     return (
       <React.Fragment>
-      <Toolbar />
+      <Toolbar drawerToggleClicked={this.sitedrawerToggleHandler} />
       <SideDrawer 
         open={this.state.showSideDrawer}
         closed={this.sitedrawerClosedHandler}/>
