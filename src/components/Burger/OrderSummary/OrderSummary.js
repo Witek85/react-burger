@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import Button from '../../UI/Button/Button'
+import Button from '../../UI/Button/Button';
 
-const OrderSummary = ( props ) => {
-    const ingredientSummary = Object.keys(props.ingredients)
-    .map(igKey => {
+class OrderSummary extends Component {
+    componentWillUpdate() {
+        console.log('update');
+    }
+    render () {
+        const ingredientSummary = Object.keys(this.props.ingredients)
+        .map(igKey => {
+            return (
+                <li key={igKey}>
+                    <span style={{textTransform:'capitalize'}}>{igKey}</span>:
+                    {this.props.ingredients[igKey]}
+                </li>);
+        })
         return (
-            <li key={igKey}>
-                <span style={{textTransform:'capitalize'}}>{igKey}</span>:
-                {props.ingredients[igKey]}
-            </li>);
-    })
-    return (
-        <React.Fragment>
-            <h3>Your Order:</h3>
-            <ul>{ingredientSummary}</ul>
-            <p><strong>Total price: {props.price.toFixed(2)}</strong></p>
-            <p>Continue to checkout</p>
-            <Button btnType="Danger" clicked={props.purchaseCanceled} >CANCEL</Button>
-            <Button btnType="Success" clicked={props.purchaseContinued} >CONTINUE</Button>
-        </React.Fragment>
-    )
-}
+            <React.Fragment>
+                <h3>Your Order:</h3>
+                <ul>{ingredientSummary}</ul>
+                <p><strong>Total price: {this.props.price.toFixed(2)}</strong></p>
+                <p>Continue to checkout</p>
+                <Button btnType="Danger" clicked={this.props.purchaseCanceled} >CANCEL</Button>
+                <Button btnType="Success" clicked={this.props.purchaseContinued} >CONTINUE</Button>
+            </React.Fragment>
+        )
+    }
+};
 
 export default OrderSummary;
