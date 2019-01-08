@@ -5,8 +5,10 @@ import Backdrop from '../Backdrop/Backdrop';
 
 class Modal extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show
         // if next props show true return true
+        return nextProps.show !== this.props.show || 
+        nextProps.children !== this.props.children
+        // children się zmieniaja trzeba to uwzględnić
     }
     componentWillUpdate() {
         console.log('modal update')
