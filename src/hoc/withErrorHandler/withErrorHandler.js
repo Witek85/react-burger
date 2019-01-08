@@ -32,18 +32,6 @@ const withErrorHandler = ( WrappedComponent, axios ) => {
       )
     }
   }
-
-  // return (props) => {
-  //   return (
-  //     <React.Fragment>
-  //       <Modal show>
-  //         Something didn't work!
-  //       </Modal>
-  //       <WrappedComponent {...props} />
-  //     </React.Fragment>
-      
-  //   )
-  // }
 }
 
 export default withErrorHandler;
