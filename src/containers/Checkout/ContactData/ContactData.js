@@ -5,6 +5,8 @@ import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css';
 import axios from '../../../axios-orders'
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as orderActions from '../../../store/actions/index';
 
 class ContactData extends Component {
     state = {
@@ -19,8 +21,8 @@ class ContactData extends Component {
 
     orderHandler = (e) => {
         e.preventDefault();
-        console.log(this.props.ings);
-        this.setState({loading: true});
+        // console.log(this.props.ings);
+        // this.setState({loading: true});
         const order = {
         ingredients: this.props.ings,
         price: this.props.price,
@@ -35,16 +37,8 @@ class ContactData extends Component {
         },
         deliveryMethod: 'fast'
         }
-        axios.post('/orders.json', order)
-        .then(response => {
-            this.setState({loading: false, purchasing: false});
-            console.log(response);
-            this.props.history.push('/');
-        })
-        .catch(error => {
-            this.setState({loading: false, purchasing: false});
-            console.log(error)
-        });
+        this.props.onOrderBurger(order);
+
     }
 
     render () {
@@ -77,4 +71,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurgerStart(orderData))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
