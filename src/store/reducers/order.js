@@ -11,7 +11,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-
       }
     case actionTypes.PURCHASE_BURGER_SUCCESS:
       const newOrder = {

@@ -10,9 +10,9 @@ class Modal extends Component {
         nextProps.children !== this.props.children
         // children się zmieniaja trzeba to uwzględnić
     }
-    componentWillUpdate() {
-        console.log('modal update')
-    }
+    // componentWillUpdate() {
+    //     console.log('modal update')
+    // }
     render () {
         return (
             <React.Fragment>
