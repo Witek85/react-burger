@@ -10,16 +10,6 @@ import ContactDataForm from './ContactDataForm/ContactDataForm'
 import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
-    state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postalCode: ''
-        },
-        loading: false
-    }
-
     orderHandler = values => {
         console.log(values)
 
@@ -35,7 +25,7 @@ class ContactData extends Component {
             },
             email: values.email
         },
-        deliveryMethod: 'fast'
+        deliveryMethod: values.deliveryMethod
         }
         this.props.onOrderBurger(order);
 
@@ -44,13 +34,6 @@ class ContactData extends Component {
     render () {
         let form = (
             <ContactDataForm onSubmit={this.orderHandler} />
-        // <form>
-        //     <input type="text" name="name" placeholder="your name" />
-        //     <input type="email" name="email" placeholder="your email" />
-        //     <input type="text" name="street" placeholder="street" />
-        //     <input type="text" name="postal" placeholder="postal code" />
-        //     <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
-        // </form>
         );
         if (this.props.loading) {
             form = <Spinner />;
