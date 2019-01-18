@@ -6,6 +6,7 @@ import classes from './ContactData.css';
 import axios from '../../../axios-orders'
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import ContactDataForm from './ContactDataForm/ContactDataForm'
 import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
@@ -19,21 +20,20 @@ class ContactData extends Component {
         loading: false
     }
 
-    orderHandler = (e) => {
-        e.preventDefault();
-        // console.log(this.props.ings);
-        // this.setState({loading: true});
+    orderHandler = values => {
+        console.log(values)
+
         const order = {
         ingredients: this.props.ings,
         price: this.props.price,
         customer: {
-            name: 'name surname',
+            name: values.name,
             address: {
-            street: 'teststreet',
-            zip: '1234',
+            street: values.street,
+            zip: values.postal,
             country: 'pl'
             },
-            email: 'mail.test.pl'
+            email: values.email
         },
         deliveryMethod: 'fast'
         }
@@ -43,13 +43,14 @@ class ContactData extends Component {
 
     render () {
         let form = (
-        <form>
-            <input type="text" name="name" placeholder="your name" />
-            <input type="email" name="email" placeholder="your email" />
-            <input type="text" name="street" placeholder="street" />
-            <input type="text" name="postal" placeholder="postal code" />
-            <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
-        </form>
+            <ContactDataForm onSubmit={this.orderHandler} />
+        // <form>
+        //     <input type="text" name="name" placeholder="your name" />
+        //     <input type="email" name="email" placeholder="your email" />
+        //     <input type="text" name="street" placeholder="street" />
+        //     <input type="text" name="postal" placeholder="postal code" />
+        //     <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+        // </form>
         );
         if (this.props.loading) {
             form = <Spinner />;
