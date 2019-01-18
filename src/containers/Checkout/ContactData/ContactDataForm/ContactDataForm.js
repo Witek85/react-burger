@@ -1,6 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form';
 import classes from './ContactDataForm.css';
+import Button from '../../../../components/UI/Button/Button';
 
 let ContactDataForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props
@@ -45,12 +46,12 @@ let ContactDataForm = props => {
         </Field>
       </div>
       <div>
-        <button type="submit" disabled={pristine || submitting}>
+        <Button btnType="Success" type="submit" disabled={pristine || submitting}>
           Submit
-        </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
+        </Button>
+        <Button btnType="Danger" type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values
-        </button>
+        </Button>
       </div>
     </form>
   )
