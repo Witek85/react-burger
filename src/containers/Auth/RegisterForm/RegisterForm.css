@@ -1,0 +1,9 @@
+.Register {
+  max-width: 400px;;
+  margin: 0 auto;
+}
+
+input {
+  margin: 0 auto;
+  margin-bottom: 5px;
+}
