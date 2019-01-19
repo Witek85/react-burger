@@ -14,10 +14,10 @@ let RegisterForm = props => {
       <form onSubmit={handleSubmit}>
         <div>
           <Field
-            name="username"
+            name="email"
             component="input"
-            type="text"
-            placeholder="Username"
+            type="email"
+            placeholder="User Email"
           />
         </div>
         <div>

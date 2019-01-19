@@ -7,8 +7,8 @@ import * as actions from '../../store/actions';
 class Auth extends Component {
 
   registerHandler = values => {
-    console.log(values.username, values.password);
-    this.props.onAuth(values.username, values.password);
+    console.log(values.email, values.password);
+    this.props.onAuth(values.email, values.password);
   }
 
   render () {
