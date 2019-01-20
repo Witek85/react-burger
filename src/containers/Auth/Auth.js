@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import LoginForm from './LoginForm/LoginForm';
 import RegisterForm from './RegisterForm/RegisterForm';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import * as actions from '../../store/actions';
 
 class Auth extends Component {
@@ -18,23 +19,41 @@ class Auth extends Component {
   }
 
   render () {
-    return (
-        <div>
-          <LoginForm onSubmit={this.loginHandler} />
-          <RegisterForm onSubmit={this.registerHandler} />
-        </div>
+
+    let form = (
+      <div>
+        <LoginForm onSubmit={this.loginHandler} />
+        <RegisterForm onSubmit={this.registerHandler} />
+      </div>
     )
+    let errorMessage = null;
+
+    if (this.props.loading) {
+      form = <Spinner />
+    }
+
+    if (this.props.error) {
+      errorMessage = (
+        <p>{this.props.error.message}</p>
+      )
+    }
+
+    return (
+      <div>
+        {errorMessage}
+        {form}
+      </div>
+    );
   }
 };
 
 
-// const mapStateToProps = state => {
-//   return {
-//     ings: state.burgerBuilder.ingredients,
-//     price: state.burgerBuilder.totalPrice,
-//     loading: state.order.loading
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error
+  }
+}
 
 
 const mapDispatchToProps = dispatch => {
@@ -43,4 +62,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
