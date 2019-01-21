@@ -25,11 +25,11 @@ export const purchaseBurgerStart = () => {
     }
 }
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
     console.log('purchaseBurger');
     return dispatch => {
         dispatch(purchaseBurgerStart());
-        axios.post('/orders.json', orderData)
+        axios.post('/orders.json?auth=' + token, orderData)
         .then(response => {
             console.log('success', response.data.name, orderData);
             dispatch(purchaseBurgerSuccess(response.data.name, orderData));
@@ -66,10 +66,12 @@ export const fetchOrdersStart = () => {
     }
 }
 
-export const fetchOrders = () => {
+// you can use getState
+
+export const fetchOrders = (token) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get('/orders.json')
+        axios.get('/orders.json?auth=' + token)
         .then(res => {
             const fetchedOrders = [];
             for (let key in res.data) {
