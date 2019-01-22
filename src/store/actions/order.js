@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
 
 export const purchaseBurgerSuccess = (id, orderData) => {
-    console.log('purchaseBurgerSuccess');
     return {
         type: actionTypes.PURCHASE_BURGER_SUCCESS, 
         orderId: id,
@@ -11,7 +10,6 @@ export const purchaseBurgerSuccess = (id, orderData) => {
 }
 
 export const purchaseBurgerFailed = (error) => {
-    console.log('purchaseBurgerFailed');
     return {
         type: actionTypes.PURCHASE_BURGER_FAILED, 
         error: error
@@ -19,14 +17,12 @@ export const purchaseBurgerFailed = (error) => {
 }
 
 export const purchaseBurgerStart = () => {
-    console.log('purchaseBurgerStart');
     return {
         type: actionTypes.PURCHASE_BURGER_START, 
     }
 }
 
 export const purchaseBurger = (orderData, token) => {
-    console.log('purchaseBurger');
     return dispatch => {
         dispatch(purchaseBurgerStart());
         axios.post('/orders.json?auth=' + token, orderData)

@@ -10,8 +10,6 @@ import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
     orderHandler = values => {
-        console.log(values)
-
         const order = {
         ingredients: this.props.ings,
         price: this.props.price,

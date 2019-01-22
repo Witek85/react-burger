@@ -16,7 +16,6 @@ const reducer = (state = initialState, action) => {
         loading: true,
       };
     case actionTypes.AUTH_SUCCESS:
-      console.log(action);
       return {
         ...state,
         token: action.token,

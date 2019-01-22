@@ -15,7 +15,6 @@ class Auth extends Component {
   }
 
   registerHandler = values => {
-    console.log(values.email, values.password);
     this.props.onAuth(values.email, values.password, "register");
   }
 
