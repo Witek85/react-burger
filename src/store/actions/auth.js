@@ -22,17 +22,22 @@ export const authFailed = (error) => {
   }
 }
 
-export const logout = () => {;
+export const logout = () => {
   return {
     type: actionTypes.AUTH_INIT_LOGOUT
   }
 }
 
+export const logoutSucceed = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  }
+}
+
 export const checkAuthTimeout = (expTime) => {
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expTime * 1000);
+  return {
+    type: actionTypes.AUTH_CHECK_TIMEOUT,
+    expirationTime: expTime
   }
 }
 
