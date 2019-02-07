@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-orders';
 
 export const authStart = () => {
     return {
@@ -51,49 +50,7 @@ export const auth = (email, password, method) => {
 }
 
 export const authCheckState = (error) => {
-  return dispatch => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      dispatch(logout());
-
-    // ----
-
-    // } else {
-    //   const expirationDate = localStorage.getItem('expirationDate');
-    //   if (expirationDate <= new Date()) {
-    //     dispatch(logout());
-    //   } else {
-    //     const userId = localStorage.getItem('userId');
-    //     dispatch(authSuccess(token, userId));
-    //     dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) * 1000 ));
-    //   }
-    // }
-
-    // ----
-
-    } else {
-      let time = new Date();
-      var secT = time.getSeconds();
-      var minT = time.getMinutes();
-      var hrsT = time.getHours();
-      var total_secondsT = (hrsT*3600) + (minT*60) + secT;
-      let expirationDate = new Date(localStorage.getItem("expirationDate"));
-      var sec = expirationDate.getSeconds();
-      var min = expirationDate.getMinutes();
-      var hrs = expirationDate.getHours();
-      var total_seconds = (hrs*3600) + (min*60) + sec;
-      console.log("new date is",new Date().getSeconds())
-      console.log("experation date is",expirationDate.getSeconds())
-      console.log(total_seconds - total_secondsT)
-      if(total_seconds < total_secondsT){
-          dispatch(logout());
-      } else {
-          const userId = localStorage.getItem("userId");
-          dispatch(authSuccess(token, userId));
-          dispatch(checkAuthTimeout(total_seconds));
-      }
-    }
-
-    // ----
+  return {
+    type: actionTypes.AUTH_CHECK_STATE
   }
 }

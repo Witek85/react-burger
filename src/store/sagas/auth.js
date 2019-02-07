@@ -40,3 +40,41 @@ export function* authUserSaga(action) {
     yield put(actions.authFailed(error.response.data.error));
   }
 }
+
+export function* authCheckStateSaga(action) {
+  const token = yield localStorage.getItem('token');
+  if (!token) {
+    put(actions.logout());
+  } else {
+    let time = yield new Date();
+    var secT = yield time.getSeconds();
+    var minT = yield time.getMinutes();
+    var hrsT = yield time.getHours();
+    var total_secondsT = yield (hrsT*3600) + (minT*60) + secT;
+    let expirationDate = yield new Date(localStorage.getItem("expirationDate"));
+    var sec = yield expirationDate.getSeconds();
+    var min = yield expirationDate.getMinutes();
+    var hrs = yield expirationDate.getHours();
+    var total_seconds = (hrs*3600) + (min*60) + sec;
+    yield console.log("new date is",new Date().getSeconds())
+    yield console.log("experation date is",expirationDate.getSeconds())
+    yield console.log(total_seconds - total_secondsT)
+    if(total_seconds < total_secondsT){
+      yield put(actions.logout());
+    } else {
+      const userId = yield localStorage.getItem("userId");
+      yield put(actions.authSuccess(token, userId));
+      yield put(actions.checkAuthTimeout(total_seconds));
+    }
+  }
+  // } else {
+  //   const expirationDate = localStorage.getItem('expirationDate');
+  //   if (expirationDate <= new Date()) {
+  //     dispatch(logout());
+  //   } else {
+  //     const userId = localStorage.getItem('userId');
+  //     dispatch(authSuccess(token, userId));
+  //     dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) * 1000 ));
+  //   }
+  // }
+}
