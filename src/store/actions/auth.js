@@ -42,35 +42,11 @@ export const checkAuthTimeout = (expTime) => {
 }
 
 export const auth = (email, password, method) => {
-  return dispatch => {
-    dispatch(authStart());
-    let url = "";
-    const authData = {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    };
-    if (method === "register") {
-      url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDQTMRAUOsKXG9M8V5Yi8NwcdQDLROW6Lk';
-    }
-    else if (method === "login") {
-      url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDQTMRAUOsKXG9M8V5Yi8NwcdQDLROW6Lk';
-    }
-    console.log(authData);
-    axios.post(url, authData)
-    .then(response => {
-      console.log(response);
-      const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-      localStorage.setItem('token', response.data.idToken);
-      localStorage.setItem('expirationDate', expirationDate);
-      localStorage.setItem('userId', response.data.localId);
-      dispatch(authSuccess(response.data.idToken, response.data.localId))
-      dispatch(checkAuthTimeout(response.data.expiresIn));
-    })
-    .catch(error => {
-      console.log('error', error);
-      dispatch(authFailed(error.response.data.error))
-    })
+  return {
+    type: actionTypes.AUTH_USER,
+    email: email,
+    password: password,
+    method: method,
   }
 }
 
